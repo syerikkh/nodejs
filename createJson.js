@@ -1,15 +1,18 @@
-const fs = require('fs');
+const express = require('express');
 
-const addJson = {
-    id: 1,
-    first_name: 'Serik',
-    last_name: 'KHs',
-    email: 'kdaysh4@naver.com',
-    gender: 'Male',
-    ip_address: '255.126.120.70'
-};
+const port = 8000;
+const app = express();
 
-const path = 'MOCK_DATA.json';
-fs.writeFile(path, JSON.stringify(addJson,), 'utf8', (err, data) => {
+app.get('/', (req, res) => {
+    res.send("HELlo World")
+});
+app.get('/express', (req, res) => {
+    res.send("HELlo express")
+});
+app.post('/express', (req, res) => {
+    res.send("Success")
+});
 
+app.listen(port, () => {
+    console.log('Server is running on http://localhost:' + port)
 })
