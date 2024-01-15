@@ -1,6 +1,7 @@
 const express = require('express');
 const port = 8000;
 const app = express();
+const multer = require('multer');
 const cors = require('cors');
 const { readUsers, readProducts, readCars, createUser } = require('./index.js')
 // const readProducts = require('./index.js');
@@ -8,6 +9,8 @@ const { readUsers, readProducts, readCars, createUser } = require('./index.js')
 
 app.use(cors());
 
+
+const upload = multer({ dest: 'uploads/' })
 app.get('/users', (req, res) => {
     const users = readUsers();
     res.send(users);
@@ -32,6 +35,15 @@ app.post('/users', (req, res) => {
     });
     res.send(user);
 });
+
+app.post('/uploads', upload.single("avatar"), (req, res) => {
+    try {
+        console.log('files', req.file)
+        return res.status(200).json({ message: 'Successfully uploaded' })
+    } catch (error) {
+        return res.status(400).json({ message: 'Failed' })
+    }
+})
 
 app.listen(port, () => {
     console.log('Server is running on http://localhost:' + port)

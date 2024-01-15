@@ -55,6 +55,12 @@ const createUser = (newUser) => {
 
     fs.writeFileSync('USERS.json', JSON.stringify(users))
 }
+
+const updateUser = () => {
+    const data = fs.readFileSync('USERS.json', 'utf8')
+    const users = JSON.parse(data);
+
+}
 // console.log("Application running at: http://localhost:" + PORT)
 
 // exports.readUsers = readUsers;
