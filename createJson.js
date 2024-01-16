@@ -7,14 +7,25 @@ const { readUsers, readProducts, readCars, createUser } = require('./index.js')
 // const readProducts = require('./index.js');
 
 
+
 app.use(cors());
 
 
 const upload = multer({ dest: 'uploads/' })
+
+const PASS = '12345';
+app.use(express.json());
+app.use('/users', (req, res, next) => {
+    console.log('jajjaja');
+    console.log(req.body)
+    if (req.query.secret === PASS) next();
+    res.status(403).json({ message: 'failed' })
+})
 app.get('/users', (req, res) => {
     const users = readUsers();
     res.send(users);
 });
+
 app.get('/products', (req, res) => {
     const products = readProducts();
     res.send(products);
